@@ -56,3 +56,9 @@ class ProbingArguments(object):
             "help": "whether to compute the weighted accuracy score if imbalanced"
         },
     )
+    data_dir: str = field(
+        default="data",
+        metadata={
+            "help": "whether the data for probing is located"
+        },
+    )

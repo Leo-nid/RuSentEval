@@ -17,9 +17,9 @@ from sklearn.preprocessing import LabelEncoder
 from transformers import BertTokenizer, XLMRobertaTokenizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from probing.prober import Prober
-from probing.arguments import ProbingArguments
-from probing.utils import save_results, singleton
+from .prober import Prober
+from .arguments import ProbingArguments
+from .utils import save_results, singleton
 
 
 @singleton

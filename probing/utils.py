@@ -13,8 +13,8 @@ from typing import Union
 from tqdm.auto import tqdm
 from functools import wraps
 
-from probing.arguments import ProbingArguments
-from probing.modeling_utils import TransformerModel, MeanMaskedPooling
+from .arguments import ProbingArguments
+from .modeling_utils import TransformerModel, MeanMaskedPooling
 
 from torch.utils.data import Dataset, DataLoader
 
@@ -103,21 +103,24 @@ class FeatureDataset(Dataset):
 
 
 class ProbingDataset(Dataset):
-    def __init__(self, probe_task: str, prepro_batch_size: int, bucketing: bool):
+    def __init__(self, probe_task: str, prepro_batch_size: int, bucketing: bool, data_dir: str):
         """
         Dataset object for creating features for the probe task
         :param probe_task: The probe task name
         :param prepro_batch_size: The size of the batch for preprocessing
         :param bucketing: Whether to perform char-level sequence bucketing
+        :param data_dir: Whether the data is located
         """
         super(ProbingDataset, self).__init__()
         self.probe_task = probe_task
         self.prepro_batch_size = prepro_batch_size
         self.bucketing = bucketing
+        self.data_dir = data_dir
         self.examples = self.load_dataset(
             probe_task=self.probe_task,
             prepro_batch_size=self.prepro_batch_size,
             bucketing=self.bucketing,
+            data_dir=self.data_dir
         )
 
     def __len__(self):
@@ -132,6 +135,7 @@ class ProbingDataset(Dataset):
     ) -> list:
         examples = []
         ind = 0
+        print(os.path.join(os.getcwd(), data_dir, probe_task) + ".txt")
         with open(
             os.path.join(os.getcwd(), data_dir, probe_task) + ".txt",
             "r",
@@ -277,6 +281,7 @@ class Featurizer(object):
             probe_task=self.probe_task,
             prepro_batch_size=self.args.prepro_batch_size,
             bucketing=self.args.bucketing,
+            data_dir=self.args.data_dir
         )
         self.transformer_model = TransformerModel(
             model_name=self.model_name, model_is_random=self.args.model_is_random

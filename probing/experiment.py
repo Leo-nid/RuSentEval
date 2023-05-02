@@ -2,9 +2,9 @@ import warnings
 
 warnings.simplefilter(action="ignore", category=(FutureWarning, DeprecationWarning))
 
-from probing.prober import Prober
-from probing.arguments import ProbingArguments
-from probing.utils import Featurizer, save_results
+from .prober import Prober
+from .arguments import ProbingArguments
+from .utils import Featurizer, save_results
 
 
 class Experiment(object):

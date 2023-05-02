@@ -9,9 +9,9 @@ from sklearn.utils.class_weight import compute_class_weight
 from torch.utils.data.sampler import RandomSampler, SequentialSampler
 from torch.utils.data import DataLoader, Dataset
 
-from probing.arguments import ProbingArguments
-from probing.modeling_utils import Linear, NonLinear
-from probing.utils import FeatureDataset, HDF5Handler, init_seed, save_results
+from .arguments import ProbingArguments
+from .modeling_utils import Linear, NonLinear
+from .utils import FeatureDataset, HDF5Handler, init_seed, save_results
 
 
 class Prober(object):
